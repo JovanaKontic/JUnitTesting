@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 //  - Standard
 //  - Simple
 //  - IndicativeSentences
-
-
 class MoneyTransactionService2Test {
     private static final double randomMoneyAmount = 100;
     private static final double zeroMoneyAmount = 0;
@@ -29,7 +27,6 @@ class MoneyTransactionService2Test {
     private static final double moreThenRandomMoneyAmount = 101;
     private static final double negativeAmount = -1;
 
-
     private MoneyTransactionService testInstance;
     @BeforeAll
     static void startUp() {
@@ -37,63 +34,6 @@ class MoneyTransactionService2Test {
     @BeforeEach
     void setUp () {
         testInstance = new MoneyTransactionService();
-    }
-    @Test
-    void shouldTransferMoneyFromOneAccountToAnother() {
-        Account account1 = new Account(randomMoneyAmount);
-        Account account2 = new Account(zeroMoneyAmount);
-        testInstance.transferMoney(account1,account2,randomMoneyAmount);
-        assertEquals(zeroMoneyAmount,account1.getMoneyAmount());
-        assertEquals(randomMoneyAmount, account2.getMoneyAmount());
-    }
-    @Test
-    void should_Throw_Exception_If_Account_From_Is_Null () {
-        Account account1 = null;
-        Account account2 = new Account(randomMoneyAmount);
-        Exception exception = assertThrows(IllegalArgumentException.class, ()-> testInstance.transferMoney(account1,account2,randomMoneyAmount));
-        assertEquals(accountExceptionMessage, exception.getMessage());
-    }
-    @Test
-    void shouldThrowExceptionIfAccountToIsNull () {
-        Account account1 = new Account(randomMoneyAmount);
-        Account account2 = null;
-        Exception exception = assertThrows(IllegalArgumentException.class, ()-> testInstance.transferMoney(account1,account2,randomMoneyAmount));
-        assertEquals(accountExceptionMessage, exception.getMessage());
-    }
-    @Test
-    void shouldThrowNotEnoughMoneyExceptionWhenTransferingMoreMoney () {
-        Account account1 = new Account(randomMoneyAmount);
-        Account account2 = new Account(zeroMoneyAmount);
-        assertThrows(NotEnoughMoneyException.class, ()-> testInstance.transferMoney(account1, account2, moreThenRandomMoneyAmount));
-    }
-    @Test
-    void shouldThrowExceptionWhenTransferingNegativeAmount () {
-        Account account1 = new Account();
-        Account account2 = new Account();
-        Exception exception = assertThrows(IllegalArgumentException.class, ()-> testInstance.transferMoney(account1, account2, negativeAmount));
-        assertEquals(moneyAmountMessage, exception.getMessage());
-    }
-    @Test
-    void shouldThrowExceptionWhenTransferingZeroAmount () {
-        Account account1 = new Account();
-        Account account2 = new Account();
-        Exception exception = assertThrows(IllegalArgumentException.class, ()-> testInstance.transferMoney(account1,account2, zeroMoneyAmount));
-        assertEquals(moneyAmountMessage, exception.getMessage());
-    }
-    //==========================================================================================================================
-
-    @Test
-    void should_Transfer_Money_From_One_Account_To_Another_2() {
-        //ASSERTION TOGETHER
-        // In a grouped assertion all assertions are executed, and all
-        // failures will be reported together.
-        Account account1 = new Account(randomMoneyAmount);
-        Account account2 = new Account(zeroMoneyAmount);
-        testInstance.transferMoney(account1,account2,randomMoneyAmount);
-        assertAll("money transaction",
-                ()->assertEquals(zeroMoneyAmount,account1.getMoneyAmount()),
-                ()->assertEquals(randomMoneyAmount, account2.getMoneyAmount())
-        );
     }
     @Test
     void should_Transfer_Money_From_One_Account_To_Another_3() {
@@ -139,8 +79,6 @@ class MoneyTransactionService2Test {
         );
         assertTrue(actualResult);
     }
-
-
     @Test
     void should_Transfer_Money_From_One_Account_To_Another_6() {
         //specify what is a valid input for this test
@@ -177,20 +115,16 @@ class MoneyTransactionService2Test {
     void nullAndEmptySources(String text) {
         assertTrue(text == null || text.trim().isEmpty());
     }
-
-
     @ParameterizedTest
     @MethodSource("sourceMethod")
     void testMethodSource(String arg) {
         assertNotNull(arg);
     }
-
     // return type can be any type that can be converted to a Stream.
     // For example: Collection, Iterator, Iterable, IntStream, DoubleStream, LongStream
     static Stream<String> sourceMethod() {
         return Stream.of("John", "Walter", "Derek");
     }
-
     @ParameterizedTest
     @CsvSource({
             "apple,         1",
@@ -202,13 +136,10 @@ class MoneyTransactionService2Test {
         assertNotNull(fruit);
         assertNotEquals(0, rank);
     }
-
     @AfterEach
     void cleanUp () {
     }
     @AfterAll
     static void tearDown () {
     }
-
-
 }
